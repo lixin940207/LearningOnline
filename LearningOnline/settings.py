@@ -107,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "users.UserProfile" # 指定user的model，而不用默认的django自带的user表
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
