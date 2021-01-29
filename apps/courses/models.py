@@ -11,7 +11,7 @@ DIFFICULTY_CHOICE = (
     ("gj", "advanced")
 )
 class Course(BaseModel):
-    tacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     name = models.CharField(verbose_name="course name", max_length=50)
     desc = models.CharField(verbose_name="course description", max_length=300)
     time_duration = models.IntegerField(default=0, verbose_name="course duration(minuites)")
@@ -25,10 +25,8 @@ class Course(BaseModel):
     detail = models.TextField(verbose_name="course detail")
     image = models.ImageField(upload_to="courses/%Y/%m", verbose_name="cover image", max_length=100)
 
-    class Meta:
-        verbose_name = "course"
-
-
+    def __str__(self):
+        return self.name
 
 
 class Lesson(BaseModel):
@@ -36,8 +34,9 @@ class Lesson(BaseModel):
     name = models.CharField(max_length=100, verbose_name="lesson name")
     time_duration = models.IntegerField(default=0, verbose_name="learning duration")
 
-    class Meta:
-        verbose_name = "lesson"
+    def __str__(self):
+        return self.name
+
 
 class Video(BaseModel):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
@@ -45,10 +44,14 @@ class Video(BaseModel):
     time_duration = models.IntegerField(default=0, verbose_name="time duration")
     url = models.CharField(max_length=200, verbose_name="access address")
 
-    class Meta:
-        verbose_name = "video"
+    def __str__(self):
+        return self.name
+
 
 class CourseResource(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, verbose_name="resource name")
     file = models.FileField(upload_to="course/resourses/%Y/%m", max_length=200)
+
+    def __str__(self):
+        return self.name

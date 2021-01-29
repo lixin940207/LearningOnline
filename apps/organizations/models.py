@@ -8,8 +8,13 @@ ORGANIZATION_CATEGORY_CHOICES = (
     ("gx", "university")
 )
 
+
 class City(BaseModel):
-    name = models.CharField(max_length=200, verbose_name="city name")
+    name = models.CharField(max_length=200, verbose_name="city name", null=False)
+
+    def __str__(self):
+        return self.name
+
 
 class CourseOrg(BaseModel):
     name = models.CharField(max_length=50, verbose_name="organization name")
@@ -19,11 +24,15 @@ class CourseOrg(BaseModel):
                                 choices=ORGANIZATION_CATEGORY_CHOICES)
     click_nums = models.IntegerField(default=0, verbose_name="number of hits")
     fav_nums = models.IntegerField(default=0, verbose_name="number of collects")
-    image = models.ImageField(max_length=100, upload_to="org/%Y/%m", verbose_name="logo")
+    image = models.ImageField(max_length=100, upload_to="static/org/%Y/%m", verbose_name="logo")
     address = models.CharField(max_length=150, verbose_name="organization address")
     students = models.IntegerField(default=0, verbose_name="number of students")
     course_nums = models.IntegerField(default=0, verbose_name="number of courses")
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name="city")
+
+    def __str__(self):
+        return self.name
+
 
 class Teacher(BaseModel):
     #user = models.OneToOneField(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="用户")
@@ -36,4 +45,7 @@ class Teacher(BaseModel):
     click_nums = models.IntegerField(default=0, verbose_name="number of hits")
     fav_nums = models.IntegerField(default=0, verbose_name="number of collects")
     age = models.IntegerField(default=18, verbose_name="age")
-    image = models.ImageField(upload_to="teacher/%Y/%m", verbose_name="avatar", max_length=100)
+    image = models.ImageField(upload_to="static/teacher/%Y/%m", verbose_name="avatar", max_length=100)
+
+    def __str__(self):
+        return self.name
