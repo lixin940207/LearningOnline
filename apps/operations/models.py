@@ -6,6 +6,16 @@ from apps.users.models import BaseModel
 UserProfile = get_user_model()
 
 
+class Banner(BaseModel):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="banner/%Y/%m", max_length=200, verbose_name="Carousel Figure")
+    url = models.URLField(max_length=200, verbose_name="access address")
+    index = models.IntegerField(default=0, verbose_name="order")
+
+    def __str__(self):
+        return self.title
+
+
 class UserConsult(BaseModel):
     name = models.CharField(max_length=20)
     mobile = models.CharField(max_length=11)
@@ -27,7 +37,7 @@ class CourseComment(BaseModel):
 class UserFavorite(BaseModel): # 目前有三种类型的用户收藏，不需要建三张表，而且方便扩展
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="用户")
     fav_id = models.IntegerField(verbose_name="数据id")
-    fav_type = models.IntegerField(choices=((1,"course"),(2,"organization"),(3,"teacher")), default=1, verbose_name="favorite type")
+    fav_type = models.IntegerField(choices=((1, "course"), (2, "organization"), (3, "teacher")), default=1, verbose_name="favorite type")
 
     def __str__(self):
         return "{user}_{id}".format(user=self.user.username, id=self.fav_id)
@@ -40,6 +50,10 @@ class UserMessage(BaseModel):
 
     def __str__(self):
         return self.message
+
+    def unread_nums(self):
+        #未读消息数量
+        return self.usermessage_set.filter(has_read=False).count()
 
 
 class UserCourse(BaseModel):

@@ -1,6 +1,13 @@
 import xadmin
 
-from apps.operations.models import UserConsult, CourseComment, UserCourse, UserFavorite, UserMessage
+from apps.operations.models import UserConsult, CourseComment, UserCourse, UserFavorite, UserMessage, Banner
+
+
+class BannerAdmin(object):
+    list_display = ['title', 'image', 'url', "index"]
+    search_fields = ['title', 'image', 'url', "index"]
+    list_filter = ['title', 'image', 'url', "index"]
+
 
 class UserConsultAdmin(object):
     list_display = ['name', 'mobile', 'course_name', 'created_time']
@@ -31,6 +38,8 @@ class UserFavoriteAdmin(object):
     search_fields = ['user', 'fav_id', 'fav_type']
     list_filter = ['user', 'fav_id', 'fav_type', 'created_time']
 
+
+xadmin.site.register(Banner, BannerAdmin)
 xadmin.site.register(UserConsult, UserConsultAdmin)
 xadmin.site.register(UserCourse, UserCourseAdmin)
 xadmin.site.register(UserMessage, UserMessageAdmin)
