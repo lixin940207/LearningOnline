@@ -1,12 +1,13 @@
 from django.conf.urls import url
+from django.urls import path
 
 from apps.courses.views import CourseListView, CourseDetailView, CourseLessonView, CourseCommentView, CourseVideoView
 
 urlpatterns = [
     url(r'^list/$', CourseListView.as_view(), name="list"),
-    url(r'(?P<course_id>\d)/$', CourseDetailView.as_view(), name="detail"),
-    url(r'(?P<course_id>\d)/lesson/$', CourseLessonView.as_view(), name="lesson"),
-    url(r'(?P<course_id>\d)/comment/$', CourseCommentView.as_view(), name="comment"),
-    url(r'(?P<course_id>\d)/video/(?P<video_id>\d)$', CourseVideoView.as_view(), name="video"),
+    path('<int:course_id>/', CourseDetailView.as_view(), name="detail"),
+    path('<int:course_id>/lesson/', CourseLessonView.as_view(), name="lesson"),
+    path('<int:course_id>/comment/$', CourseCommentView.as_view(), name="comment"),
+    path('<int:course_id>/video/<int:video_id>', CourseVideoView.as_view(), name="video"),
 
 ]

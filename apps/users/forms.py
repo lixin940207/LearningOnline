@@ -27,6 +27,22 @@ class UploadImageForm(forms.ModelForm):
         model = UserProfile
         fields = ["avatar"]
 
+
+
+class RegisterPostForm(forms.Form):
+    nick_name = forms.CharField(required=True, min_length=2, max_length=20)
+    password = forms.CharField(required=True)
+
+    def clean_username(self):
+        nick_name = self.data.get("nick_name")
+        # 验证手机号码是否已经注册
+        users = UserProfile.objects.filter(nick_name=nick_name)
+        if users:
+            raise forms.ValidationError("username exists")
+        return nick_name
+
+
+
 class LoginForm(forms.Form):
     username = forms.CharField(required=True, min_length=2)
     password = forms.CharField(required=True, min_length=3)

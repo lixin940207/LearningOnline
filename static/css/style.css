@@ -863,7 +863,7 @@ textarea:focus {
     width: 100%;
     height: 45px;
     line-height: 45px;
-    background: #5dbf45;
+    background: #0056d2;
     color: #fff;
     margin: 0;
     border: 0;
@@ -898,7 +898,7 @@ textarea:focus {
 }
 
 .registbox .tab .active {
-    color: #4FB137;
+    color: #0056d2;
 }
 
 .registbox .tab div {
@@ -922,7 +922,7 @@ textarea:focus {
     position: absolute;
     right: 3px;
     top: 3px;
-    background: #5dbf45;
+    background: #0056d2;
     z-index: 99;
     height: 39px;
     line-height: 39px;
@@ -1379,7 +1379,7 @@ textarea:focus {
 /*#search_type{height: 37px;line-height: 37px;width: 90px !important;}*/
 /*header nav*/
 .header .nav {
-    background: #717171;
+    background: #34626c;
     height: 38px;
     font-size: 14px;
     width: 100%;
@@ -1402,7 +1402,7 @@ textarea:focus {
 }
 
 .header .nav a:hover, .header .nav .active {
-    background: #3D9328;
+    background: #839b97;
 }
 
 .header .nav li:last-child a {
@@ -1884,10 +1884,12 @@ textarea:focus {
 
 .group_list .box {
     height: 300px;
+    /*
     border: 1px solid #ccc;
+    */
     width: 233px;
     float: left;
-    overflow: hidden;
+/*    overflow: hidden;*/
     position: relative;
 }
 
@@ -1989,11 +1991,12 @@ textarea:focus {
     margin-right: 10px;
     width: 470px !important;
     height: 300px;
+    border: none;
     overflow: hidden;
 }
 
 .active2 {
-    color: #3d9328 !important;
+    color: #0056d2 !important;
 }
 
 .module1 .imgslide2 {
@@ -2448,7 +2451,7 @@ textarea:focus {
 
 footer .footer {
     background: #3a3a3a;
-    height: 300px;
+    height: 200px;
     padding: 15px;
     color: #717171;
 }
@@ -4131,7 +4134,7 @@ footer .footer .line {
 }
 
 .personal_list .left .drop a:hover, .personal_list .drop .active {
-    color: #717171;
+    color: #839b97;
 }
 
 .personal_list .left .dropwrap .drop {
@@ -4815,7 +4818,7 @@ footer .footer .line {
 }
 
 .write_diary .step li:hover, .write_diary .step .active {
-    background: #717171;
+    background: #839b97;
     border: 3px solid #b6e2ac;
 }
 
@@ -5011,7 +5014,7 @@ footer .footer .line {
 }
 
 .companyright {
-    background: #717171;
+    background: #f8f8f8;
 }
 
 .companyright .rightform {
@@ -5024,7 +5027,7 @@ footer .footer .line {
 .companyright .head {
     text-align: center;
     color: #fff;
-    background: #4fb137;
+    background: rgb(59, 175, 218);
     padding: 0;
     margin: 0;
     font-size: 24px;
@@ -5233,7 +5236,7 @@ footer .footer .line {
     border-top: 1px solid #eaeaea;
     text-indent: 60px;
     position: relative;
-    background: url(../images/tel.png) no-repeat 20px center;
+    background: url(../images/phone.svg) no-repeat 20px center;
 }
 
 .companycenter .tel h2 {
@@ -7675,7 +7678,7 @@ footer .footer .line {
 }
 
 .pagecont .fl .active, .pagecont .fl li:hover {
-    background: #96e287;
+    background: #839b97;
 }
 
 .pagecont .fl .active a, .pagecont .fl li:hover a {
@@ -8038,7 +8041,7 @@ footer .footer .line {
 }
 
 .upload-btn:hover {
-    background: #5dbf45;
+    background: #0056d2;
 }
 
 table .upload-btn {
@@ -8452,7 +8455,7 @@ table .upload-btn {
 }
 
 .btn-green:hover {
-    background: #5dbf45;
+    background: #0056d2;
 }
 
 .btn-w100 {
@@ -8673,7 +8676,7 @@ table .upload-btn {
 .help_content .leftsubnav .bigclass a {
     color: #5c5c5c;
     display: inline-block;
-    font-family: "微软雅黑";
+    font-family: Arial;
     font-size: 18px;
     font-weight: normal;
     line-height: 18px;

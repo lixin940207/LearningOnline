@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}课程章节信息页-慕学在线网{% endblock %}
+{% block title %}lesson-welearning{% endblock %}
 {% block custom_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}" />
@@ -11,12 +11,12 @@
 {% endblock %}
 {% block custom_bread %}
     <section>
-        <div class="wp">
+        <div class="wp" style="margin-top:60px">
             <ul class="crumbs">
-                <li><a href="{% url "index" %}">首页</a>></li>
-                <li><a href="{% url "course:list" %}">公开课</a>></li>
-                <li><a href="">课程详情</a>></li>
-                <li>章节信息</li>
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "course:list" %}">Courses</a>></li>
+                <li><a href="">{{ course.name }}</a>></li>
+                <li>Lesson Info</li>
             </ul>
         </div>
     </section>
@@ -56,8 +56,8 @@
                         <div class="mod-tab-menu">
                             <ul class="course-menu clearfix">
                                 <li><a class="ui-tabs-active active" id="learnOn"
-                                       href="{% url "course:lesson" course.id %}"><span>章节</span></a></li>
-                                <li><a id="commentOn" class="" href="{% url "course:comment" course.id %}"><span>评论</span></a></li>
+                                       href="{% url "course:lesson" course.id %}"><span>Lessons</span></a></li>
+                                <li><a id="commentOn" class="" href="{% url "course:comment" course.id %}"><span>Comments</span></a></li>
                             </ul>
                         </div>
                         {% if course.notice %}
@@ -75,7 +75,7 @@
                                     <ul class="video">
                                         {% for video in lesson.video_set.all %}
                                             <li>
-                                                <a target="_blank" href='{% url "course:video" course.id video.id %}' class="J-media-item studyvideo">
+                                   <a target="_blank" href='{% url "course:video" course.id video.id %}' class="J-media-item studyvideo">
                                                     {{ video.name }}({{ video.time_duration }}min)<i
                                                         class="study-state"></i>
                                                 </a>

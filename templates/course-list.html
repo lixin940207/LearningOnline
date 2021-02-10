@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}课程列表页-慕学在线网{% endblock %}
+{% block title %}courselist-welearning{% endblock %}
 {% block custom_bread %}
     <section>
-        <div class="wp">
+        <div class="wp" style="margin-top:60px">
             <ul class="crumbs">
-                <li><a href="{% url "index" %}">首页</a>></li>
-                <li>公开课</li>
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li>Courses</li>
             </ul>
         </div>
     </section>
@@ -18,45 +18,58 @@
                 <div class="left layout">
                     <div class="head">
                         <ul class="tab_header">
-                            <li class="{% if sort == "" %}active{% endif %}"><a href="?sort=">最新</a></li>
-                            <li class="{% if sort == "hot" %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
-                            <li class="{% if sort == "students" %}active{% endif %}"><a href="?sort=students">参与人数</a>
+                            <li class="{% if sort == "" %}active{% endif %}"><a href="?sort=">Recent</a></li>
+                            <li class="{% if sort == "hot" %}active{% endif %}"><a href="?sort=hot">Hot</a></li>
+                            <li class="{% if sort == "students" %}active{% endif %}"><a href="?sort=students">Student
+                                Number</a>
                             </li>
                         </ul>
                     </div>
                     <div id="inWindow">
                         <div class="tab_cont" id="content">
-                            <div class="group_list">
+                            <div class="course-list--container--3zXPS">
                                 {% for course in all_courses.object_list %}
-                                    <div class="box">
-                                        <a href="{% url "course:detail" course.id %}">
-                                            <img width="280" height="350" class="scrollLoading"
-                                                 src="{{ MEDIA_URL }}{{ course.image }}"/>
-                                        </a>
-                                        <div class="des">
-                                            <a href="{% url "course:detail" course.id %}">
-                                                <h3>{{ course.name }}</h3>
-                                            </a>
-                                            <span class="fl"><i class="key">{{ course.time_duration }}</i>minutes</span>
-                                            <span class="fr">{{ course.students }} enrolled</span>
-                                        </div>
-                                        <div class="bottom">
-                                            <a href="{% url "course:detail" course.id %}"><span
-                                                    class="fl">from {{ course.course_org.name }}</span></a>
-                                            <span class="star fr  notlogin
-                                        " data-favid="15">
-                                        {{ course.fav_num }}
-                                    </span>
-                                        </div>
-                                    </div>
+                                    <div style="padding-top: 1rem;padding-bottom: 1rem;border-bottom: 1px solid #dcdacb;position: relative;box-sizing: border-box;margin: 0;">
+                                        <a id="u137-popper-trigger--395" tabindex="0" aria-expanded="false"
+                                           href="{% url "course:detail" course.id %}"
+                                           style="display: block;color: #0f7c90;text-decoration: none;font-weight: 400;line-height: 1.4;font-size: 1.6rem;">
+                                            <div data-purpose="container"
+                                                 style="min-width: 50.8rem;max-width: 129.2rem; display: flex; align-items: flex-start;">
+                                                <div style="margin-right: 1.6rem;background-color: #1e1e1c;border-radius: 4px;border: 1px solid #dcdacb;overflow: hidden;">
+                                                    <img alt="" width="260" height="145"
+                                                         src="{{ course.image.url }}"
+                                                         style="border-radius: 3px;display: block;transition: opacity linear 100ms;max-width: 100%;">
+                                                </div>
+                                                <div style="color: #3c3b37;white-space: nowrap;flex: 1;min-width: 1px;position: relative;">
+                                                    <div style="margin-bottom: .4rem; display: -webkit-box!important;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;white-space: normal;font-family: sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;font-weight: 700;line-height: 1.2;letter-spacing: -.02rem;font-size: 1rem;color: #3c3b37">
+                                                        {{ course.name }}
+                                                    </div>
+                                                    <p style="max-width: 60rem;display: -webkit-box!important; -webkit-line-clamp: 3; -webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;white-space: normal;margin-bottom: .4rem; font-weight: 400;line-height: 1.4;font-size: 0.9rem;color: #3c3b37">
+                                                        {{ course.desc }}</p>
+                                                    <div style="margin-bottom: .4rem;color: #73726c;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;    font-weight: 400;line-height: 1.4;font-size: 0.8rem;">
+                                                        {{ course.teacher.name }}
+                                                    </div>
+                                                    <div style="margin-bottom: .4rem;display: flex;align-items: center;flex-wrap: wrap;">
+                                                        <span aria-label="346602 reviews"
+                                                              style="font-size: 0.8rem">{{ course.students }} enrolled</span>
+                                                    </div>
+                                                    <div style="margin-bottom: .4rem;color: #73726c; display: flex;align-items: center;flex-wrap: wrap;font-weight: 400;line-height: 1.4;font-size: 0.8rem;">
+                                                        <span class="course-card--row--1OMjg"
+                                                              style="display: flex;align-items: center;flex-wrap: wrap;">{{ course.time_duration }}&nbsp;total minutes&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                                        <span class="course-card--row--1OMjg"
+                                                              style="display: flex;align-items: center;flex-wrap: wrap;">{{ course.lesson_set.count }}&nbsp;lectures&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                                        <span class="course-card--row--1OMjg"
+                                                              style="display: flex;align-items: center;flex-wrap: wrap;"> {{ course.get_degree_display }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a></div>
                                 {% endfor %}
-
-
                             </div>
                             <div class="pageturn">
                                 <ul class="pagelist">
                                     {% if all_courses.has_previous %}
-                                        <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}">上一页</a>
+                                        <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}">previous</a>
                                         </li>
                                     {% endif %}
 
@@ -73,7 +86,7 @@
                                     {% endfor %}
                                     {% if all_courses.has_next %}
                                         <li class="long"><a
-                                                href="?{{ all_courses.next_page_number.querystring }}">下一页</a></li>
+                                                href="?{{ all_courses.next_page_number.querystring }}">next</a></li>
                                     {% endif %}
 
                                 </ul>
@@ -81,22 +94,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="right companyright" style="width: 280px!important;border: 1px solid #eaeaea!important;">
+                    <div class="head">Contact Us</div>
+                    <form class="rightform" id="jsStayForm" style="width: 280px;background: #f8f8f8">
+                        <div>
+                            <img src="{% static 'images/rightform1.png' %}"/>
+                            <input type="text" name="name" id="companyName" placeholder="name" maxlength="25"/>
+                        </div>
+                        <div>
+                            <img src="{% static 'images/rightform2.png' %}"/>
+                            <input type="text" name="mobile" id="companyMobile" placeholder="phone number"/>
+                        </div>
+                        <div>
+                            <img src="{% static 'images/rightform3.png' %}"/>
+                            <input type="text" name="course_name" id="companyAddress" placeholder="course name"
+                                   maxlength="50"/>
+                        </div>
+                        <p class="error company-tips" id="jsCompanyTips"></p>
+                        <input class="btn" type="text" id="jsStayBtn" style="background: rgb(59, 175, 218)"
+                               value="let's welearning >"/>
+                        {% csrf_token %}
+                    </form>
+                </div>
                 <div class="right layout">
                     <div class="head">Recommended Courses</div>
                     <div class="group_recommend">
                         {% for course in recommend_courses %}
-                            <dl>
-                                <dt>
-                                    <a target="_blank" href="">
-                                        <img width="240" height="220" class="scrollLoading"
-                                             src="{{ MEDIA_URL }}{{ course.image }}"/>
-                                    </a>
-                                </dt>
-                                <dd>
-                                    <a target="_blank" href=""><h2>{{ course.name }}</h2></a>
-                                    <span class="fl">difficulty: <i
-                                            class="key">{{ course.get_degree_display }}</i></span>
-                                </dd>
+                            <dl style="height: auto">
+                                <img width="50" height="50" class="scrollLoading"
+                                     src="
+                                             {% if forloop.counter == 1 %}{% static 'images/medalx1.svg' %}{% elif forloop.counter == 2 %}{% static 'images/medalx2.svg' %}{% else %}{% static 'images/medalx3.svg' %}{% endif %}"
+                                     style="float: left;"/>
+
+                                <a target="_blank" href="{% url "course:detail" course.id %}"
+                                   style="width: 100%;padding-left: 20px"><h2
+                                        style="font-size: 16px;color: black">{{ course.name }}</h2></a>
                             </dl>
                         {% endfor %}
                     </div>
@@ -104,4 +136,32 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                $('#jsStayBtn').on('click', function () {
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "{% url "org:add_consult" %}",
+                        data: $('#jsStayForm').serialize(),
+                        async: true,
+                        success: function (data) {
+                            if (data.status == 'success') {
+                                $('#jsStayForm')[0].reset();
+                                $('#jsCompanyTips').html("");
+                                alert("submit success!")
+                            } else if (data.status == 'fail') {
+                                $('#jsCompanyTips').html(data.msg)
+                            }
+                        },
+                    });
+                });
+            });
+        })
+
+    </script>
 {% endblock %}

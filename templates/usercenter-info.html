@@ -1,25 +1,39 @@
-{% extends "usercenter-base.html" %}
-{% block title %}个人信息- 慕学在线网{% endblock %}
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}personalcenter - welearning{% endblock %}
 {% block custom_bread %}
     <section>
         <div class="wp">
-            <ul class="crumbs">
-                <li><a href="{% url "index" %}">首页</a>></li>
-                <li><a href="{% url "users:info" %}">个人中心</a>></li>
-                <li>个人信息</li>
+            <ul class="crumbs" style="margin-top:60px" >
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "users:info" %}">Personal Center</a>></li>
+                <li>Personal Info</li>
             </ul>
         </div>
     </section>
 {% endblock %}
-
-{% block right_form %}
+{% block content %}
+    <section>
+    <div class="wp list personal_list">
+        <div class="left">
+            <ul>
+                <li class="{% if current_page == "info" %}active2{% endif %}"><a href="{% url "users:info" %}">Personal Info</a></li>
+                <li class="{% if current_page == "mycourse" %}active2{% endif %}"><a href="{% url "users:mycourse" %}">My Courses</a></li>
+                <li class="{% if current_page == 'myfav_org' or current_page == 'myfav_teacher' or current_page == 'myfav_course' %}active2{% endif %}"><a href="{% url "users:myfav_org" %}">My Favorites</a></li>
+                <li class="{% if current_page == "message" %}active2{% endif %}">
+                    <a href="{% url "users:messages" %}" style="position: relative;">
+                        My Messages
+                    </a>
+                </li>
+            </ul>
+        </div>
     <div class="right">
         <div class="personal_des ">
             <div class="head" style="border:1px solid #eaeaea;">
-                <h1>个人信息</h1>
+                <h1 style="font-size: 20px">Personal Info</h1>
             </div>
             <div class="inforcon">
-                <div class="left" style="width:242px;">
+                <div class="left" style="width:230px;">
                     <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
                     <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off"
                           method="post" action="{% url "users:image-upload" %}" target='frameFile'>
@@ -29,7 +43,7 @@
                                      src="{{ user.avatar.url }}"/>
                             </span>
                             <span class="fl upload-inp-box" style="margin-left:70px;">
-                                <span class="button btn-green btn-w100" id="jsAvatarBtn">modify</span>
+                                <span class="button btn-green btn-w100" id="jsAvatarBtn" style="background-color: #0056d2">modify</span>
                                 <input type="file" name="avatar" id="avatarUp" class="js-img-up"/>
                             </span>
                         </label>
@@ -37,42 +51,37 @@
                     </form>
                     <div style="border-top:1px solid #eaeaea;margin-top:30px;">
                         <a class="button btn-green btn-w100" id="jsUserResetPwd"
-                           style="margin:80px auto;width:100px;">修改密码</a>
+                           style="margin:80px auto;width:200px;background-color: #0056d2">change password</a>
                         {% csrf_token %}
                     </div>
                 </div>
                 <form class="perinform" id="jsEditUserForm" autocomplete="off">
                     <ul class="right">
-                        <li>Nickname:
-                            <input type="text" name="nick_name" id="nick_name" value="{{ user.nick_name }}"
+                        <li>Nickname:<input type="text" name="nick_name" id="nick_name" value="{{ user.nick_name }}"
                                    maxlength="10">
                             <i class="error-tips"></i>
                         </li>
-                        <li>Birthday:
-                            <input type="text" id="birth_day" name="birthday" value="{{ user.birthday|default_if_none:''|date:'Y-m-d' }}"
+                        <li>Birthday:<input type="text" id="birth_day" name="birthday" value="{{ user.birthday|default_if_none:''|date:'Y-m-d' }}"
                                    readonly="readonly"/>
                             <i class="error-tips"></i>
                         </li>
-                        <li>Gender:
-                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
+                        <li>Gender:<label style="width: auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
                                                                         value="male"
                                                                         {% if user.gender == "male" %}checked="checked"{% endif %}>male</label>
-                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
+                            <label style="width: auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
                                                                               value="female"
                                                                               {% if user.gender == "female" %}checked="checked"{% endif %}>female</label>
                         </li>
-                        <li class="p_infor_city">address:
-                            <input type="text" name="address" id="address" placeholder="" value="{{ user.address }}"
+                        <li class="p_infor_city">address:<input type="text" name="address" id="address" placeholder="" value="{{ user.address }}"
                                    maxlength="10"/>
                             <i class="error-tips"></i>
                         </li>
-                        <li>phone number:
-                            <input class="borderno" type="text" name="mobile" readonly="readonly"
+                        <li>phone number:<input class="borderno" type="text" name="mobile" readonly="readonly"
                                    value="{{ user.mobile }}">
                             <span class="changeemai_btn green changephone-color">[modify]</span>
                         </li>
                         <li class="button heibtn">
-                            <input type="button" id="jsEditUserBtn" value="保存">
+                            <input type="button" id="jsEditUserBtn" style="background-color: #0056d2" value="save">
                         </li>
                     </ul>
                 {% csrf_token %}
@@ -80,4 +89,11 @@
             </div>
         </div>
     </div>
+
+
+    </div>
+</section>
+{% endblock %}
+{% block custom_js %}
+    <script src="{% static 'js/deco-user.js' %}"></script>
 {% endblock %}

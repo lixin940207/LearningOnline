@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}课程详情页-慕学在线网{% endblock %}
+{% block title %}coursedetail-welearning{% endblock %}
 {% block custom_bread %}
     <section>
-        <div class="wp">
+        <div class="wp" style="margin-top:60px">
             <ul class="crumbs">
-                <li><a href="{% url "index" %}">首页</a>></li>
-                <li><a href="{% url "course:list" %}">公开课</a>></li>
-                <li>课程详情</li>
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "course:list" %}">{{ course.name }}</a>></li>
+                <li>Course Detail</li>
             </ul>
         </div>
     </section>
@@ -18,9 +18,9 @@
 		<div class="groupPurchase_detail detail">
 			<div class="toppro">
 				<div class="left">
-					<div class="picbox">
-						<div class="tb-booth tb-pic">
-							<img width="440" height="445" src="{{ course.image.url }}" class="jqzoom" />
+					<div class="picbox" style="height: 350px">
+						<div class="tb-booth tb-pic" style="height: 350px">
+							<img width="440" height="350" src="{{ course.image.url }}" class="jqzoom" />
 						</div>
 
 					</div>
@@ -32,10 +32,10 @@
 							<span class="fr">{{ course.students }} enrolled</span>
 						</div>
 						<ul class="parameter">
-							<li><span class="pram word3"></span><span>{{ course.time_duration }}</span> minutes</li>
-                            <li><span class="pram word3"></span><span>{{ course.lesson_set.count }}</span> lessons</li>
+							<li><span class="pram word3"></span><span>{{ course.time_duration }}</span> &nbsp;&nbsp;minutes</li>
+                            <li><span class="pram word3"></span><span>{{ course.lesson_set.count }}</span> &nbsp;&nbsp;lessons</li>
                             <li><span class="pram word3">Category: </span><span title="">{{ course.category }}</span></li>
-							<li class="piclist"><span class="pram word4">Students：</span>
+                            <li class="piclist"><span class="pram word3">Students:</span>
                                 {% for usercourse in course.usercourse_set.all|slice:3 %}
                                     <span class="pic"><img width="40" height="40" src="{{ usercourse.user.avatar.url }}"/></span>
                                 {% endfor %}
@@ -45,7 +45,11 @@
 							<div class="btn colectgroupbtn" id="jsLeftBtn">
                                   {% if is_favorited_course %}Favorite{% else %}Favorite{% endif %}
                             </div>
-                                <div class="buy btn"><a style="color: white" href="{% url "course:lesson" course.id %}">开始学习</a></div>
+                                <div class="buy btn">
+                                    <div style="margin:-8px">
+                                    <a style="color: white;" href="{% url "course:lesson" course.id %}">Start Learning</a>
+                                        </div>
+                                    </div>
 						</div>
 					</div>
                     <div class="group-share-box">
@@ -66,8 +70,8 @@
 				</div>
 				<div class="right">
 					<div class="head">
-						<h1>授课机构</h1>
-						<p>世界名校，课程权威</p>
+						<h1 style="font-size: 20px;line-height: normal">WeLearning</h1>
+						<p style="color: white">World Wide Famous Schools</p>
 					</div>
 					<div class="pic">
                         <a href="{% url "org:home" course.course_org.id %}">
@@ -75,10 +79,9 @@
                         </a>
                     </div>
 					<a href="{% url "org:home" course.course_org.id %}">
-                        <h2 class="center" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
+                        <h2 class="center" style="font-size: 24px;font-weight: 700" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
                     </a>
-					<div class="btn  notlogin
-					     "data-favid="14" id="jsRightBtn">
+					<div class="btn  notlogin" data-favid="14" id="jsRightBtn">
                          {% if is_favorited_org %}Favorited{% else %}Favorite{% endif %}
                     </div>
 					<div class="clear">
@@ -105,7 +108,7 @@
 			<div class="left layout">
 				<div class="head">
 					<ul class="tab_header">
-						<li class="active">课程详情</li>
+						<li class="active">Course Info</li>
 					</ul>
 				</div>
 				<div class="tab_cont tab_cont1">
@@ -119,7 +122,7 @@
 				</div>
 			</div>
 			<div class="right layout">
-				<div class="head">相关课程推荐</div>
+				<div class="head">Related Courses</div>
                 <div class="group_recommend">
                     {% for course in recommend_courses %}
                         <dl>
@@ -148,7 +151,7 @@ function add_fav(current_elem, fav_id, fav_type){
     $.ajax({
         cache: false,
         type: "POST",
-        url:"{% url "op:fav" %}",
+        url:"{% url 'op:fav' %}",
         data:{'fav_id':fav_id, 'fav_type':fav_type},
         async: true,
         beforeSend:function(xhr, settings){
@@ -157,7 +160,7 @@ function add_fav(current_elem, fav_id, fav_type){
         success: function(data) {
             if(data.status == 'fail'){
                 if(data.msg == '用户未登录'){
-                    window.location.href="{% url "login" %}";
+                    window.location.href="{% url 'login' %}";
                 }else{
                     alert(data.msg)
                 }
@@ -168,7 +171,7 @@ function add_fav(current_elem, fav_id, fav_type){
     });
 }
 $(document).ready(function() {
-    $('#jsLeftBtn').on('click', function () {
+    $('#jsLeftBtn').on('click', function(){
         add_fav($(this), {{ course.id }}, 1);
     });
 });
@@ -180,5 +183,7 @@ $(document).ready(function() {
 });
 
 </script>
+
 {% endblock %}
+
 

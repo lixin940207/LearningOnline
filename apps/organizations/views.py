@@ -36,6 +36,15 @@ class TeacherView(View):
     def get(self, request, *args, **kwargs):
         all_teachers = Teacher.objects.all()
 
+        for teacher in all_teachers:
+            total_students = 0
+            total_comments = 0
+            for course in teacher.course_set.all():
+                total_students += course.students
+                total_comments += course.coursecomment_set.count()
+            teacher.total_students = total_students
+            teacher.total_comments = total_comments
+
         # search
         keywords = request.GET.get("keywords", "")
         s_type = "teacher"
@@ -127,6 +136,16 @@ class OrgTeacherView(View):
                 is_favorite = True
 
         all_teachers = course_org.teacher_set.all()
+
+        for teacher in all_teachers:
+            total_students = 0
+            total_comments = 0
+            for course in teacher.course_set.all():
+                total_students += course.students
+                total_comments += course.coursecomment_set.count()
+            teacher.total_students = total_students
+            teacher.total_comments = total_comments
+
         return render(request, "org-detail-teachers.html",
                       {
                           "all_teachers": all_teachers,
@@ -147,8 +166,18 @@ class OrgHomeView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 is_favorite = True
 
-        all_courses = course_org.course_set.all()[:3]
-        all_teachers = course_org.teacher_set.all()[:1]
+        all_courses = course_org.course_set.all()[:4]
+        all_teachers = course_org.teacher_set.all()[:3]
+
+        for teacher in all_teachers:
+            total_students = 0
+            total_comments = 0
+            for course in teacher.course_set.all():
+                total_students += course.students
+                total_comments += course.coursecomment_set.count()
+            teacher.total_students = total_students
+            teacher.total_comments = total_comments
+
         return render(request, "org-detail-homepage.html",
                       {
                           "all_courses": all_courses,
@@ -208,7 +237,7 @@ class OrgView(View):
         except PageNotAnInteger:
             page = 1
 
-        p = Paginator(all_orgs, per_page=5, request=request)
+        p = Paginator(all_orgs, per_page=8, request=request)
         orgs = p.page(page)
 
         return render(request, "org-list.html",

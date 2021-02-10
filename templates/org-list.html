@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}机构列表页-慕学在线网{% endblock %}
+{% block title %}orglist-welearning{% endblock %}
 {% block custom_bread %}
     <section>
-        <div class="wp">
+        <div class="wp" style="margin-top:60px">
             <ul class="crumbs">
-                <li><a href="index.html">首页</a>></li>
-                <li>课程机构</li>
+                <li><a href="index.html">Home</a>></li>
+                <li>Organizations</li>
             </ul>
         </div>
     </section>
@@ -16,14 +16,16 @@
     <section>
         <div class="wp butler_list_box list">
             <div class='left'>
-                <div class="listoptions">
-                    <ul>
+                <div class="listoptions" >
+                    <ul style="margin: 0">
                         <li>
-                            <h2>Organization Category</h2>
-                            <div class="cont">
-                                <a href="?city={{ city_id }}"><span class="{% if category == '' %}active2{% endif %}">all</span></a>
+                            <h2 style="font-size:14px; color:#0056d2">Category</h2>
+                            <div class="cont" style="font-family: Source Sans Pro,Arial,sans-serif;font-size: 13px">
+                                <a href="?city={{ city_id }}">
+                                    <span class="{% if category == '' %}active2{% endif %}">All</span></a>
 
-                                <a href="?ct=pxjg&city={{ city_id }}"><span
+                                <a href="?ct=pxjg&city={{ city_id }}">
+                                    <span
                                         class="{% if category == 'pxjg' %}active2{% endif %}">Training Institution</span></a>
 
                                 <a href="?ct=gx&city={{ city_id }}"><span
@@ -35,11 +37,10 @@
                             </div>
                         </li>
                         <li>
-                            <h2>Region</h2>
-                            <div class="more">more</div>
-                            <div class="cont">
+                            <h2 style="font-size:14px; color:#0056d2">Region</h2>
+                            <div class="cont" style="font-family: Source Sans Pro,Arial,sans-serif;font-size: 13px">
                                 <a href="?ct={{ category }}"><span
-                                        class="{% ifequal city_id '' %}active2{% endifequal %}">all</span></a>
+                                        class="{% ifequal city_id '' %}active2{% endifequal %}">All</span></a>
                                 {% for city in all_cities %}
                                     <a href="?city={{ city.id }}&ct={{ category }}"><span
                                             class="{% ifequal city_id city.id|stringformat:'i' %}active2{% endifequal %}">{{ city.name }}</span></a>
@@ -49,12 +50,12 @@
                     </ul>
                 </div>
                 <div class="all"><span class="key">{{ org_nums }}</span> in total</div>
-                <div class="butler_list company list">
+                <div class="butler_list company list" style="border: 1px solid #eaeaea;">
                     <div class="layout">
                         <div class="head">
                             <ul class="tab_header">
                                 <li class="{% ifequal sort '' %}active{% endifequal %}"><a
-                                        href="?ct={{ category }}&city={{ city_id }}">all</a></li>
+                                        href="?ct={{ category }}&city={{ city_id }}">All</a></li>
                                 <li class="{% ifequal sort 'students' %}active{% endifequal %}"><a
                                         href="?sort=students&ct={{ category }}&city={{ city_id }}">Students Number
                                     &#8595;</a></li>
@@ -63,50 +64,89 @@
                                     &#8595;</a></li>
                             </ul>
                         </div>
-                        {% for org in all_orgs.object_list %}
-                            <dl class="des difdes">
-                                <dt>
-                                    <a href="{% url "org:home" org.id %}">
-                                        <img width="200" height="120" class="scrollLoading"
-                                             data-url="{{ MEDIA_URL }}{{ org.image }}"/>
-                                    </a>
-                                </dt>
-                                <dd>
-                                    <div class="clearfix">
-                                        <a href="{% url "org:home" org.id %}">
-                                            <h1>{{ org.name }}</h1>
-                                            <div class="pic fl">
-                                                {% if org.is_auth %}
-                                                    <img src="{% static 'images/authentication.svg' %}"/>
-                                                {% endif %}
-                                                {% if org.is_golden %}
-                                                    <img src="{% static 'images/gold.svg' %}"/>
-                                                {% endif %}
-
+                        <div class="group_list">
+                            {% for org in all_orgs.object_list %}
+                                    <div class="box" style="width: 190px;height: 240px;margin: 20px;overflow: visible;">
+                                        <a href="{% url "org:home" org.id %}"
+                                           style="text-decoration: none;position: absolute;top: 0;right: 0;bottom: 0;left: 0;">
+                                            <div style="height: 240px; box-shadow: 0 2px 4px 0 rgb(0 0 0 / 30%);border-color:#bfc9ca;border-width:1px;border-radius:3px;flex-direction:column!important;display: flex!important;">
+                                                <div class="d-card-hero"
+                                                     style="height: 120px;background-color: #e9ecef;overflow: hidden;border-radius: 3px 3px 0 0;border-bottom: 1px solid #f2faf7;">
+                                                    <img
+                                                            src="{{ org.image.url }}"
+                                                            alt=""
+                                                            style="height:120px; width: 100%;vertical-align: middle;border-style: none;border-style: none;">
+                                                </div>
+                                                <div class="d-card-body" style="height:150px;padding: 20px 20px 33px;overflow: hidden;text-overflow: ellipsis;">
+                                                    <h3 class="name-heading"
+                                                        style="height: auto;line-height: 0.9;color: #454545;font-family: Inter,Helvetica Neue,Arial,sans-serif;font-size: 1rem;">
+                                                        <span
+                                                            width="230" style="color:black">
+                                        {{ org.name }}<span
+                                                            style="position:fixed;visibility:hidden;top:0;left:0">…</span></span>
+                                                    </h3>
+                                                    <div class="provider">
+                                                        <span class="sr-only">Schools and Partners
+                                                        <!-- -->: </span>
+                                                        <span width="220" ><span>
+                                                            <span style="font-size: 12px; line-height: 0.5px">{{ org.desc }}</span>
+                                                        </span><span style="position:fixed;visibility:hidden;top:0;left:0">…</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-card-footer" style="padding: 0 20px;font-size: 12px">
+                                                    <div class="card-type">
+                                                        <span></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
-                                    <ul class="cont">
-                                        <li class="first"><p class="pic9">Course
-                                            Number：<span>{{ org.course_nums }}</span></p>
-                                            <p class="c7">Student Number：<span>{{ org.students }}</span></p></li>
-                                        <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
-                                        <li class="pic10" style="padding-left:18px;">courses：
-                                            {% for course in org.get_top_courses %}
-                                                <a href="/diary/19/">{{ course.name }}</a>
-                                            {% endfor %}
-                                        </li>
-                                    </ul>
-                                </dd>
-                                <div class="buy start_groupbuy jsShowPerfect2" data-id="22"><br/>联系<br/>服务</div>
-                            </dl>
-                        {% endfor %}
+                                {% endfor %}
+                            </div>
+{#                        {% for org in all_orgs.object_list %}#}
+{#                            <dl class="des difdes">#}
+{#                                <dt>#}
+{#                                    <a href="{% url "org:home" org.id %}">#}
+{#                                        <img width="200" height="120" class="scrollLoading"#}
+{#                                             data-url="{{ MEDIA_URL }}{{ org.image }}"/>#}
+{#                                    </a>#}
+{#                                </dt>#}
+{#                                <dd>#}
+{#                                    <div class="clearfix">#}
+{#                                        <a href="{% url "org:home" org.id %}">#}
+{#                                            <h1>{{ org.name }}</h1>#}
+{#                                            <div class="pic fl">#}
+{#                                                {% if org.is_auth %}#}
+{#                                                    <img src="{% static 'images/authentication.svg' %}"/>#}
+{#                                                {% endif %}#}
+{#                                                {% if org.is_golden %}#}
+{#                                                    <img src="{% static 'images/gold.svg' %}"/>#}
+{#                                                {% endif %}#}
+{##}
+{#                                            </div>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                    <ul class="cont">#}
+{#                                        <li class="first"><p class="pic9">Course#}
+{#                                            Number：<span>{{ org.course_nums }}</span></p>#}
+{#                                            <p class="c7">Student Number：<span>{{ org.students }}</span></p></li>#}
+{#                                        <li class="c8" style="padding-left:18px;">{{ org.address }}</li>#}
+{#                                        <li class="pic10" style="padding-left:18px;">courses：#}
+{#                                            {% for course in org.get_top_courses %}#}
+{#                                                <a href="/diary/19/">{{ course.name }}</a>#}
+{#                                            {% endfor %}#}
+{#                                        </li>#}
+{#                                    </ul>#}
+{#                                </dd>#}
+{#                                <div class="buy start_groupbuy jsShowPerfect2" data-id="22"><br/>联系<br/>服务</div>#}
+{#                            </dl>#}
+{#                        {% endfor %}#}
 
                     </div>
                     <div class="pageturn">
                         <ul class="pagelist">
                             {% if all_orgs.has_previous %}
-                                <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">上一页</a></li>
+                                <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">previous</a></li>
                             {% endif %}
 
                             {% for page in all_orgs.pages %}
@@ -121,43 +161,45 @@
                                 {% endif %}
                             {% endfor %}
                             {% if all_orgs.has_next %}
-                                <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">下一页</a></li>
+                                <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">next</a></li>
                             {% endif %}
 
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="right companyright">
-                <div class="head">我要学习</div>
-                <form class="rightform" id="jsStayForm">
+            <div class="right companyright" style="border: 1px solid #eaeaea!important;">
+                <div class="head">Contact Us</div>
+                <form class="rightform" id="jsStayForm" style="background: #f8f8f8">
                     <div>
                         <img src="{% static 'images/rightform1.png' %}"/>
-                        <input type="text" name="name" id="companyName" placeholder="名字" maxlength="25"/>
+                        <input type="text" name="name" id="companyName" placeholder="name" maxlength="25"/>
                     </div>
                     <div>
                         <img src="{% static 'images/rightform2.png' %}"/>
-                        <input type="text" name="mobile" id="companyMobile" placeholder="联系电话"/>
+                        <input type="text" name="mobile" id="companyMobile" placeholder="phone number"/>
                     </div>
                     <div>
                         <img src="{% static 'images/rightform3.png' %}"/>
-                        <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50"/>
+                        <input type="text" name="course_name" id="companyAddress" placeholder="course name" maxlength="50"/>
                     </div>
                     <p class="error company-tips" id="jsCompanyTips"></p>
-                    <input class="btn" type="text" id="jsStayBtn" value="立即咨询 >"/>
+                    <input class="btn" type="text" id="jsStayBtn" style="background: rgb(59, 175, 218)" value="let's welearning >"/>
                     {% csrf_token %}
                 </form>
             </div>
 
             <div class="right companyrank layout">
-                <div class="head">授课机构排名</div>
+                <div class="head">Recommended Organizations</div>
                 {% for hot_org in hot_orgs %}
                     <dl class="des">
-                        <dt class="num fl">{{ forloop.counter }}</dt>
-                        <dd>
-                            <a href="/company/2/"><h1>{{ hot_org.name }}</h1></a>
-                            <p>{{ hot_org.city.name }}</p>
-                        </dd>
+                        <dl style="height: auto">
+                            <img width="50" height="50" class="scrollLoading"
+                                 src="{% if forloop.counter == 1 %}{% static 'images/medal1.svg' %}{% elif forloop.counter == 2%}{% static 'images/medal2.svg' %}{% else %}{% static 'images/medal3.svg' %}{% endif %}" style="float: left;"/>
+
+                            <a target="_blank" href="" style="width: 100%"><h2
+                                    style="font-family: Maven Pro, sans-serif;font-size: 16px;color: black">{{ hot_org.name }}</h2></a>
+                        </dl>
                     </dl>
                 {% endfor %}
             </div>
@@ -180,7 +222,7 @@
                             if (data.status == 'success') {
                                 $('#jsStayForm')[0].reset();
                                 $('#jsCompanyTips').html("");
-                                alert("提交成功")
+                                alert("submit success!")
                             } else if (data.status == 'fail') {
                                 $('#jsCompanyTips').html(data.msg)
                             }

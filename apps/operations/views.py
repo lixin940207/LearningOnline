@@ -11,7 +11,7 @@ from apps.organizations.models import CourseOrg, Teacher
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         banners = Banner.objects.all().order_by("index")
-        courses = Course.objects.filter(is_banner=False)[:6]
+        courses = Course.objects.filter(is_banner=True)[:6]
         banner_courses = Course.objects.filter(is_banner=True)
         course_orgs = CourseOrg.objects.all()[:15]
         return render(request, "index.html", {

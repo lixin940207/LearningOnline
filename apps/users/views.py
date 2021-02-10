@@ -7,9 +7,9 @@ from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
 
 from apps.courses.models import Course
-from apps.operations.models import UserFavorite, UserMessage, Banner
+from apps.operations.models import UserFavorite, UserMessage, Banner, UserProfile
 from apps.organizations.models import CourseOrg, Teacher
-from apps.users.forms import LoginForm, UploadImageForm, UserInfoForm, ChangePwdForm
+from apps.users.forms import LoginForm, UploadImageForm, UserInfoForm, ChangePwdForm, RegisterPostForm
 
 
 def message_nums(request):
@@ -139,6 +139,7 @@ class UploadImageView(LoginRequiredMixin, View):
                 "status": "fail",
             })
 
+
 class UserInfoView(LoginRequiredMixin, View):
     login_url = "/login/"
 
@@ -156,6 +157,30 @@ class UserInfoView(LoginRequiredMixin, View):
             })
         else:
             return JsonResponse(userinfo_form.errors)
+
+
+class RegisterView(View):
+    def get(self, request, *args, **kwargs):
+        banners = Banner.objects.all()[:3]
+        return render(request, "register.html", {
+            "banners": banners,
+        })
+
+    def post(self, request, *args, **kwargs):
+        register_post_form = RegisterPostForm(request.POST)
+        if register_post_form.is_valid():
+            nick_name = register_post_form.cleaned_data["nick_name"]
+            password = register_post_form.cleaned_data["password"]
+            # 新建一个用户
+            user = UserProfile(username=nick_name, nick_name=nick_name)
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "register.html", {
+                "register_post_form": register_post_form
+            })
 
 
 class LogoutView(View):

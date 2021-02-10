@@ -22,12 +22,13 @@ from django.views.static import serve
 import xadmin
 from LearningOnline.settings import MEDIA_ROOT
 from apps.operations.views import IndexView
-from apps.users.views import LoginView, LogoutView
+from apps.users.views import LoginView, LogoutView, RegisterView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     path('', IndexView.as_view(), name="index"),
+    path('register/', RegisterView.as_view(), name="register"),
     path('login/', LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     # configure access url for uploading images

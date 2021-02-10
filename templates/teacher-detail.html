@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}讲师列表页-慕学在线网{% endblock %}
+{% block title %}teacherlist-welearning{% endblock %}
 {% block custom_bread %}
     <section>
-        <div class="wp">
+        <div class="wp" style="margin-top:60px">
             <ul class="crumbs">
-                <li><a href="{% url "index" %}">首页</a>></li>
-                <li><a href="{% url "org:teacher-list" %}">授课教师</a>></li>
-                <li>教师详情</li>
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "org:teacher-list" %}">Teachers</a>></li>
+                <li>{{ teacher.name }}</li>
             </ul>
         </div>
     </section>
@@ -20,7 +20,7 @@
                     <div class="brief">
                         <dl class="des">
                             <dt>
-                                <div class="picpic">
+                                <div class="picpic" style="border: none">
                                     <img width="100" height="100" src="{{ teacher.image.url }}"/>
                                 </div>
                                 <div class="btn">
@@ -37,7 +37,7 @@
                                 </span>
                                 </div>
                             </dt>
-                            <dd>
+                            <dd style="width: 600px">
                                 <a href="{% url "org:teacher-detail" teacher.id %}">
                                     <h1>{{ teacher.name }}
                                         <img title="金牌机构" src="{% static 'images/gold.svg' %}"/></h1>
@@ -63,7 +63,7 @@
                         <div class="companycenter">
                             <div class="group_list brief">
                                 {% for course in teacher.course_set.all %}
-                                <div class="module1_5 box">
+                                <div class="module1_5 box" style="border: 1px solid #eaeaea;">
                                     <a href="{% url "course:detail" course.id %}">
                                         <img width="214" height="190" class="scrollLoading"
                                              src="{{ course.image.url }}"/>
@@ -93,8 +93,8 @@
                 <div class="butler_detail_list">
                     <div class="right butler-company-box">
                         <div class="head">
-                            <h1>慕课网</h1>
-                            <p>知名高校，权威教学</p>
+                            <h1 style="font-size: 20px;line-height: normal">WeLearning</h1>
+                            <p style="color: white">World Wide Famous Schools</p>
                         </div>
                         <div class="pic">
                             <a href="{% url "org:home" teacher.org.id %}">
@@ -102,7 +102,7 @@
                             </a>
                         </div>
                         <a href="{% url "org:home" teacher.org.id %}">
-                            <h2 class="center">{{ teacher.org.name }}</h2>
+                            <h2 class="center" style="font-size: 24px;font-weight: 700">{{ teacher.org.name }}</h2>
                         </a>
                         <p class="center tell">Address: {{ teacher.org.city.name }}</p>
                         <a class="btn" id="jsRightBtn">{% if is_favorite_org %}Favorited{% else %}Favorite{% endif %}</a>
@@ -111,23 +111,33 @@
                 <div class="butler_detail_cont">
                     <div class="butler_list_box">
                         <div class="right layout">
-                            <div class="head">讲师排行榜</div>
+                            <div class="head">Recommended Teachers</div>
                             {% for teacher in hot_teachers %}
-                            <dl class="des">
-                                <span class="num fl">{{ forloop.counter }}</span>
-                                <a href="{% url "org:teacher-detail" teacher.id %}">
-                                    <dt>
-                                        <img width="50" height="50" class="scrollLoading"
-                                             src="{{ teacher.image.url }}"/>
-                                    </dt>
-                                </a>
-                                <dd>
-                                    <a href="{% url "org:teacher-detail" teacher.id %}">
-                                        <h1 title="{{ teacher.name }}">{{ teacher.name }}</h1>
-                                    </a>
-                                    <p>work years：<span>{{ teacher.work_years }}</span></p>
-                                </dd>
-                            </dl>
+                                <dl class="des" style="height: 100px">
+                        <span class="num fl">{{ forloop.counter }}</span>
+                        <a href="{% url "org:teacher-detail" teacher.id %}">
+                            <dt>
+                                <img width="50" height="50" class="scrollLoading"
+                                     src="{{ teacher.image.url }}"/>
+                            </dt>
+                        </a>
+                        <dd>
+                            <a href="{% url "org:teacher-detail" teacher.id %}">
+                                <div>{{ teacher.name }}</div>
+                            </a>
+                            <ul style="display: flex;flex-wrap: wrap;align-items: center;flex: 1 1 100%;list-style: none;">
+                                <svg width="13" height="10"
+                                     viewBox="129 34 13 10"
+                                     style="margin-right: 8px;">
+                                    <path d="M135.399 34L129 37.2l6.399 3.199 5.235-2.618v4.944h1.163V37.2L135.4 34zm0 7.7l-4.654-2.327v1.3L135.4 43l4.653-2.327v-1.3l-4.653 2.326z"
+                                          fill="#6F757B" fill-rule="evenodd"></path>
+                                </svg>
+                                <li style="display: inline;font-size: 13px;">
+                                    {{ teacher.work_company }}
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
                             {% endfor %}
                         </div>
                     </div>

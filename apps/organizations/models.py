@@ -43,6 +43,7 @@ class Teacher(BaseModel):
     #user = models.OneToOneField(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="用户")
     org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name="Organization")
     name = models.CharField(max_length=50, verbose_name="Teacher Name")
+    desc = models.CharField(max_length=200, default="")
     work_years = models.IntegerField(default=0, verbose_name="Work Years")
     work_company = models.CharField(max_length=50, verbose_name="Work Company")
     work_position = models.CharField(max_length=50, verbose_name="Work Position")

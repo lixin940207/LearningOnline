@@ -1,6 +1,6 @@
 html,
 body {
-    font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+    font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", Tahoma, Arial, sans-serif;
     color: #14191e;
 }
 body {
@@ -93,7 +93,7 @@ a:active {
     display: block;
     height: 60px;
     width: 140px;
-    background: url(/static/img/common/logo.png?t=1) no-repeat center center;
+    background: url(/static/images/welearning.svg) no-repeat center center;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -404,14 +404,14 @@ a:active {
     margin: 0px;
     height: 0px;
     color: #14191e;
-    font: bold 14px/15px "微软雅黑";
+    font: bold 14px/15px "Arial";
     height: 15px;
 }
 .header-app .QR-download #app-type {
     margin: 0px;
     height: 0px;
     color: #787d82;
-    font: 12px/20px "微软雅黑";
+    font: 12px/20px "Arial";
     height: 30px;
 }
 .header-app .QR-download:before {

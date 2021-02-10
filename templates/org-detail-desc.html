@@ -1,11 +1,42 @@
-{% extends "org_base.html" %}
-{% block right_form %}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_bread %}
+    <section>
+        <div class="wp" style="margin-top:60px">
+            <ul class="crumbs">
+            <li><a href="{% url 'index' %}">Home</a>></li>
+            <li><a href="{% url "org:list" %}">Organizations</a>></li>
+            <li>{% block path_path %}{{ course_org.name }}{% endblock %}</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <section>
+    <div class="wp list personal_list comp">
+        <div class="left">
+            <ul>
+                <li class="{% if current_page == 'home' %}active2{% endif %}"><a
+                        href="{% url "org:home" course_org.id %}">Organization</a></li>
+                <li class="{% if current_page == 'course' %}active2{% endif %}"><a
+                        href="{% url "org:course" course_org.id %}">Courses</a></li>
+                <li class="{% if current_page == 'desc' %}active2{% endif %}"><a
+                        href="{% url "org:desc" course_org.id %}">Introduction</a></li>
+                <li class="{% if current_page == 'teacher' %}active2{% endif %}"><a
+                        href="{% url "org:teacher" course_org.id %}">Teachers</a></li>
+            </ul>
+        </div>
+
+
     <div class="right companycenter layout" >
         <div class="head">
-            <h1>机构介绍</h1>
+            <h1 style="font-size: 20px">Introduction</h1>
         </div>
         <div class="des">
             {{ course_org.desc }}
         </div>
     </div>
+        </div>
+    </section>
 {% endblock %}

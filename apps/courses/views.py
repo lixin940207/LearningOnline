@@ -149,7 +149,7 @@ class CourseListView(View):
         except PageNotAnInteger:
             page = 1
 
-        p = Paginator(all_courses, per_page=2, request=request)
+        p = Paginator(all_courses, per_page=6, request=request)
         courses = p.page(page)
 
         return render(request, "course-list.html", {

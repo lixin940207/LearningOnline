@@ -1,45 +1,58 @@
-{% extends 'usercenter-base.html' %}
-{% block title %}我的收藏- 慕学在线网{% endblock %}
+{% extends "base.html" %}
 {% load staticfiles %}
+{% block title %}personalcenter - welearning{% endblock %}
 {% block custom_bread %}
-     <section>
+    <section>
         <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="{% url 'index' %}">首页</a>></li>
-                <li><a href="{% url 'users:info' %}">个人中心</a>></li>
-                <li>我的收藏</li>
+            <ul class="crumbs" style="margin-top:60px" >
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "users:info" %}">Personal Center</a>></li>
+                <li>Personal Info</li>
             </ul>
         </div>
     </section>
 {% endblock %}
-
-{% block right_form %}
+{% block content %}
+    <section>
+    <div class="wp list personal_list">
+        <div class="left">
+            <ul>
+                <li class="{% if current_page == "info" %}active2{% endif %}"><a href="{% url "users:info" %}">Personal Info</a></li>
+                <li class="{% if current_page == "mycourse" %}active2{% endif %}"><a href="{% url "users:mycourse" %}">My Courses</a></li>
+                <li class="{% if current_page == 'myfav_org' or current_page == 'myfav_teacher' or current_page == 'myfav_course' %}active2{% endif %}"><a href="{% url "users:myfav_org" %}">My Favorites</a></li>
+                <li class="{% if current_page == "message" %}active2{% endif %}">
+                    <a href="{% url "users:messages" %}" style="position: relative;">
+                        My Messages
+                    </a>
+                </li>
+            </ul>
+        </div>
       <div class="right" >
             <div class="personal_des Releasecont">
                 <div class="head">
-                    <h1>我的收藏</h1>
+                    <h1 style="font-size: 20px">My Favorites</h1>
                 </div>
             </div>
             <div class="personal_des permessage">
                 <div class="head">
                     <ul class="tab_header messagehead">
-                        <li><a href="{% url 'users:myfav_org' %}">课程机构</a> </li>
-                        <li><a href="{% url 'users:myfav_teachers' %}">授课教师 </a></li>
-                        <li class="active"><a href="{% url 'users:myfav_course' %}">公开课程</a></li>
+                        <li><a href="{% url 'users:myfav_org' %}">Organizations</a> </li>
+                        <li><a href="{% url 'users:myfav_teachers' %}">Teachers </a></li>
+                        <li class="active"><a href="{% url 'users:myfav_course' %}">Courses</a></li>
                     </ul>
 
                 </div>
                 <div class="companycenter">
                     <div class="group_list brief">
                         {% for course in course_list %}
-                        <div class="module1_5 box">
+                        <div class="module1_5 box" style="border: 1px solid #eaeaea;">
                             <a href="{% url 'course:detail' course.id %}">
                                 <img width="214" height="190" src="{{ course.image.url }}"/>
                             </a>
                             <div class="des">
                                 <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
-                                <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
-                                <span class="fr">学习人数：{{ course.students }}</span>
+                                <span class="fl"><i class="key">{{ course.learn_times }}</i>minutes</span>
+                                <span class="fr">{{ course.students }} enrolled</span>
                             </div>
                             <div class="bottom">
                                 <span class="fl">{{ course.course_org.name }}</span>
@@ -51,6 +64,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    </section>
 {% endblock %}
 
 {% block custom_js %}

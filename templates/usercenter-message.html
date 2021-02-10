@@ -1,30 +1,43 @@
-{% extends 'usercenter-base.html' %}
-{% block title %}我的消息- 慕学在线网{% endblock %}
+{% extends "base.html" %}
 {% load staticfiles %}
+{% block title %}personalcenter - welearning{% endblock %}
 {% block custom_bread %}
-     <section>
+    <section>
         <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="{% url 'index' %}">首页</a>></li>
-                <li><a href="{% url 'users:info' %}">个人中心</a>></li>
-                <li>我的消息</li>
+            <ul class="crumbs" style="margin-top:60px" >
+                <li><a href="{% url "index" %}">Home</a>></li>
+                <li><a href="{% url "users:info" %}">Personal Center</a>></li>
+                <li>Personal Info</li>
             </ul>
         </div>
     </section>
 {% endblock %}
-
-{% block right_form %}
+{% block content %}
+    <section>
+    <div class="wp list personal_list">
+        <div class="left">
+            <ul>
+                <li class="{% if current_page == "info" %}active2{% endif %}"><a href="{% url "users:info" %}">Personal Info</a></li>
+                <li class="{% if current_page == "mycourse" %}active2{% endif %}"><a href="{% url "users:mycourse" %}">My Courses</a></li>
+                <li class="{% if current_page == 'myfav_org' or current_page == 'myfav_teacher' or current_page == 'myfav_course' %}active2{% endif %}"><a href="{% url "users:myfav_org" %}">My Favorites</a></li>
+                <li class="{% if current_page == "message" %}active2{% endif %}">
+                    <a href="{% url "users:messages" %}" style="position: relative;">
+                        My Messages
+                    </a>
+                </li>
+            </ul>
+        </div>
        <div class="right" >
 		<div class="personal_des Releasecont">
 			<div class="head">
-				<h1>我的消息</h1>
+				<h1 style="font-size: 20px">My Messages</h1>
 			</div>
 
 		</div>
 		<div class="personal_des permessage">
 			<div class="head">
 				<ul class="tab_header messagehead">
-					<li class="active"><a href="{% url 'users:messages' %}">个人消息</a> </li>
+					<li class="active"><a href="{% url 'users:messages' %}">Personal Messages</a> </li>
 				</ul>
 
 			</div>
@@ -43,7 +56,7 @@
 			<div class="pageturn pagerright">
                 <ul class="pagelist">
                 {% if messages.has_previous %}
-                    <li class="long"><a href="?{{ messages.previous_page_number.querystring }}">上一页</a></li>
+                    <li class="long"><a href="?{{ messages.previous_page_number.querystring }}">previous</a></li>
                 {% endif %}
                 {% for page in messages.pages %}
                     {% if page %}
@@ -57,12 +70,14 @@
                     {% endif %}
                 {% endfor %}
                 {% if messages.has_next %}
-                    <li class="long"><a href="?{{ messages.next_page_number.querystring }}">下一页</a></li>
+                    <li class="long"><a href="?{{ messages.next_page_number.querystring }}">next</a></li>
                 {% endif %}
             </ul>
             </div>
 		</div>
 
 	</div>
+    </div>
+    </section>
 {% endblock %}
 
