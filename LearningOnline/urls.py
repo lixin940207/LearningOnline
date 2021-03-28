@@ -22,7 +22,7 @@ from django.views.static import serve
 import xadmin
 from LearningOnline.settings import MEDIA_ROOT
 from apps.operations.views import IndexView
-from apps.users.views import LoginView, LogoutView, RegisterView
+from apps.users.views import LoginView, LogoutView, RegisterView, BehaviorView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -39,6 +39,6 @@ urlpatterns = [
     url('course/', include(('apps.courses.urls', "courses"), namespace="course")),
     url('op/', include(('apps.operations.urls', "operations"), namespace="op")),
     url('users/', include(('apps.users.urls', "users"), namespace="users")),
-
+    path('behavior-questions/', BehaviorView.as_view(), name="behavior-questions"),
 
 ]
